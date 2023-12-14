@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: MainAdapter
+    private val adapter: MainAdapter by lazy { MainAdapter() }
     private val vm: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         // Setup list adapter
-        adapter = MainAdapter(this)
         binding.nbaList.adapter = adapter
         binding.nbaList.layoutManager = LinearLayoutManager(this)
         binding.nbaList.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))

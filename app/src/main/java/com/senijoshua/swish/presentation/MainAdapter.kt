@@ -1,17 +1,19 @@
 package com.senijoshua.swish.presentation
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
+import com.senijoshua.swish.R
 import com.senijoshua.swish.data.Teams
 import com.senijoshua.swish.databinding.LayoutMainItemBinding
 
-class MainAdapter(private val context: Context) :
-    ListAdapter<Teams, MainAdapter.MainViewHolder>(MainDiffUtil) {
+class MainAdapter : ListAdapter<Teams, MainViewHolder>(MainDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -23,15 +25,37 @@ class MainAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+}
 
-    inner class MainViewHolder(private val binding: LayoutMainItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(team: Teams) {
-            binding.teamName.text = team.name
-            team.logo?.let { thumbnailUrl ->
-                Glide.with(context).load(thumbnailUrl).circleCrop().into(binding.teamThumbnail)
-            }
-        }
+class MainViewHolder(private val binding: LayoutMainItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(team: Teams) {
+        binding.teamName.text = team.name
+
+        team.logo?.let { thumbnailUrl ->
+            loadFromUrl(thumbnailUrl)
+        } ?: loadFromLocalResource()
+    }
+
+    private fun loadFromUrl(thumbnailUrl: String) {
+        Glide.with(binding.root.context)
+            .load(thumbnailUrl)
+            .placeholder(
+                ContextCompat.getDrawable(
+                    binding.root.context,
+                    R.drawable.placeholder
+                )
+            )
+            .circleCrop()
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .into(binding.teamThumbnail)
+    }
+
+    private fun loadFromLocalResource() {
+        Glide.with(binding.root.context)
+            .load(ContextCompat.getDrawable(binding.root.context, R.drawable.placeholder))
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .into(binding.teamThumbnail)
     }
 }
 

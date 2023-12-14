@@ -14,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repo: MainRepository) : ViewModel() {
     // Add a state holder using StateFlow
+    // Stop Activity recreation and Handle configuration change in the activity.
     private val _uiState = MutableStateFlow<MainState>(MainState.Loading)
     val uiState: StateFlow<MainState> = _uiState
 

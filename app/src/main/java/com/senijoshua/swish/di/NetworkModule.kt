@@ -77,6 +77,7 @@ class AuthorisationInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val authorisedRequestBuilder = request.newBuilder()
+        
         authorisedRequestBuilder.addHeader(
             HEADER_API_KEY,
             API_KEY

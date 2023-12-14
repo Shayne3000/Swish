@@ -18,6 +18,7 @@ If not setup
 - ViewBinding. DONE.
 - Hilt. DONE.
   - Retrofit + Moshi + OkHttp modules. DONE.
+- Navigation component.
 - Retrofit Api and network models. DONE.
 
 ## Process to follow for development
