@@ -53,6 +53,4 @@ class MainRepositoryTest {
         check(result is Result.Error)
         assertEquals("error", result.error.message)
     }
-
-    // Test the various states of the Main Repository
 }

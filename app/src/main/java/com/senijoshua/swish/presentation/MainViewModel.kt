@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.senijoshua.swish.data.MainRepository
 import com.senijoshua.swish.data.Result
 import com.senijoshua.swish.data.Teams
+import com.senijoshua.swish.util.TeamsIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,13 +21,17 @@ class MainViewModel @Inject constructor(private val repo: MainRepository) : View
 
     // Start network request with a coroutine in the viewmodel scope.
     fun getTeams() {
+        // Capture the async operation using the TeamsIdlingResource
+        TeamsIdlingResource.increment()
         viewModelScope.launch {
             when (val result = repo.loadTeams()) {
                 is Result.Success -> {
+                    TeamsIdlingResource.decrement()
                     _uiState.value = MainState.Success(result.data)
                 }
 
                 is Result.Error -> {
+                    TeamsIdlingResource.decrement()
                     _uiState.value = MainState.Error(result.error.message)
                 }
             }

@@ -47,6 +47,8 @@ android {
 dependencies {
     val retrofitVersion = "2.9.0"
     val kotlinCoroutinesVersion = "1.6.4"
+    val espressoVersion = "3.5.1"
+    val hiltVersion = "2.46.1"
     // Base
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.activity:activity-ktx:1.8.0")
@@ -54,8 +56,8 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.46.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
@@ -78,9 +80,14 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:5.2.0")
     // Kotlin Coroutines test
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinCoroutinesVersion")
+    // NB: Espresso Idling resource used in the main source set and not androidTest hence implementation and not androidTestImplementation
+    implementation("androidx.test.espresso:espresso-idling-resource:$espressoVersion")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
+    androidTestImplementation("androidx.test:rules:1.5.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")
 }
