@@ -139,5 +139,4 @@ class MainActivityTest {
 
         scenario.close()
     }
-    // Create a detail activity and add an end-to-end test to test the user flow with hilt and idling resource
 }
