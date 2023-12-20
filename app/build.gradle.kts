@@ -16,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.senijoshua.swish.util.HiltTestRunner"
     }
 
     buildTypes {
@@ -41,6 +41,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "17"
+    }
+
+    // For IdlingResource causing a failure in the MainViewModel tests. Might be better to not include it in prod code.
+    testOptions {
+        unitTests.isReturnDefaultValues = true
     }
 }
 
@@ -74,6 +79,8 @@ dependencies {
     // Kotlin Coroutines (might contain Flow)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion")
     // Test dependencies
+    testImplementation(project(":shared-test"))
+    androidTestImplementation(project(":shared-test"))
     // Mockito
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
     // Mockito addition for mocking final kotlin classes
@@ -87,6 +94,7 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
     androidTestImplementation("androidx.test:rules:1.5.0")
     testImplementation("junit:junit:4.13.2")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hiltVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")

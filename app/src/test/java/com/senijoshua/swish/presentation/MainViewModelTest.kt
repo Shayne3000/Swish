@@ -1,9 +1,9 @@
 package com.senijoshua.swish.presentation
 
-import com.senijoshua.swish.data.MainRepository
+import com.senijoshua.swish.data.DefaultMainRepository
 import com.senijoshua.swish.data.Result
+import com.senijoshua.swish.shared_test.fakeTeamData
 import com.senijoshua.swish.util.MainDispatcherRule
-import com.senijoshua.swish.util.fakeTeamData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -20,7 +20,7 @@ class MainViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     // mock or fake dependencies
-    private val repository: MainRepository = mock()
+    private val repository: DefaultMainRepository = mock()
 
     // setup subject under test
     private lateinit var vm: MainViewModel

@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
         google()
@@ -15,3 +17,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Swish"
 include(":app")
+include(":shared-test")

@@ -1,7 +1,6 @@
 package com.senijoshua.swish.data
 
-import com.senijoshua.swish.data.Result
-import com.senijoshua.swish.util.fakeTeamData
+import com.senijoshua.swish.shared_test.fakeTeamData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -12,7 +11,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
-class MainRepositoryTest {
+class DefaultMainRepositoryTest {
     // Setup test dispatcher and perhaps a test scope
     private val dispatcher = UnconfinedTestDispatcher()
 
@@ -20,11 +19,11 @@ class MainRepositoryTest {
     private val apiService: MainApi = mock()
 
     // Setup subject under test
-    private lateinit var repository: MainRepository
+    private lateinit var repository: DefaultMainRepository
 
     @Before
     fun setUp() {
-        repository = MainRepository(apiService, dispatcher)
+        repository = DefaultMainRepository(apiService, dispatcher)
     }
 
     @Test

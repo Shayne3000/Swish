@@ -30,6 +30,12 @@ class MainViewModel @Inject constructor(private val repo: MainRepository) : View
                     _uiState.value = MainState.Success(result.data)
                 }
 
+                is Result.Loading -> {
+                    // This is simply for validation/testing purposes
+                    TeamsIdlingResource.decrement()
+                    _uiState.value = MainState.Loading
+                }
+
                 is Result.Error -> {
                     TeamsIdlingResource.decrement()
                     _uiState.value = MainState.Error(result.error.message)
