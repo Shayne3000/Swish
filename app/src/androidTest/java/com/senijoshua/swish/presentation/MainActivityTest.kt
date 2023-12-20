@@ -10,30 +10,22 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.senijoshua.swish.R
 import com.senijoshua.swish.data.MainRepository
-import com.senijoshua.swish.di.DataModule
 import com.senijoshua.swish.shared_test.FakeMainRepository
 import com.senijoshua.swish.util.RecyclerViewItemMatcher.childViewOfItemAtPosition
 import com.senijoshua.swish.util.TeamsIdlingResource
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
-import dagger.hilt.components.SingletonComponent
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Instrumented integration test for testing the [MainActivity] and its interaction with the
  * [MainViewModel].
  */
-@UninstallModules(DataModule::class)
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -146,22 +138,6 @@ class MainActivityTest {
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
 
         scenario.close()
-    }
-
-    /**
-     * Replaces the production DataModule with FakeDataModule for this test class
-     */
-    @Module
-    @InstallIn(SingletonComponent::class)
-    abstract class FakeDataModule {
-
-        /**
-         * Replaces the MainRepository binding i.e. DefaultMainRepository with
-         * FakeMainRepository in this test class.
-         */
-        @Singleton
-        @Binds
-        abstract fun provideMainRepositoryFakeImplementation(repository: FakeMainRepository): MainRepository
     }
     // Create a detail activity and add an end-to-end test to test the user flow with hilt and idling resource
 }
