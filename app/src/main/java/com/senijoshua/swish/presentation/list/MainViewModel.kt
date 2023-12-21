@@ -1,4 +1,4 @@
-package com.senijoshua.swish.presentation
+package com.senijoshua.swish.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(private val repo: MainRepository) : View
     }
 }
 
-// Add a state representation with a sealed class
+// Add a state representation of the UI state with a sealed class
 sealed class MainState {
     data class Success(val data: List<Teams>) : MainState()
     data class Error(val errorMessage: String?) : MainState()

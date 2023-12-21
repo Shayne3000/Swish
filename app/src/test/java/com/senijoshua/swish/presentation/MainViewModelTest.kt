@@ -2,6 +2,8 @@ package com.senijoshua.swish.presentation
 
 import com.senijoshua.swish.data.DefaultMainRepository
 import com.senijoshua.swish.data.Result
+import com.senijoshua.swish.presentation.list.MainState
+import com.senijoshua.swish.presentation.list.MainViewModel
 import com.senijoshua.swish.shared_test.fakeTeamData
 import com.senijoshua.swish.util.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi

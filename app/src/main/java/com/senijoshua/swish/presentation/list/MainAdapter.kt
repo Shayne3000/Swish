@@ -1,4 +1,4 @@
-package com.senijoshua.swish.presentation
+package com.senijoshua.swish.presentation.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils.circleCrop
 import com.senijoshua.swish.R
 import com.senijoshua.swish.data.Teams
 import com.senijoshua.swish.databinding.LayoutMainItemBinding
