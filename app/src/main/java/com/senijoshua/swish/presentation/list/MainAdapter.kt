@@ -12,7 +12,7 @@ import com.senijoshua.swish.R
 import com.senijoshua.swish.data.Teams
 import com.senijoshua.swish.databinding.LayoutMainItemBinding
 
-class MainAdapter : ListAdapter<Teams, MainViewHolder>(MainDiffUtil) {
+class MainAdapter(private val onTeamClicked: (Int) -> Unit) : ListAdapter<Teams, MainViewHolder>(MainDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,13 +22,16 @@ class MainAdapter : ListAdapter<Teams, MainViewHolder>(MainDiffUtil) {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), onTeamClicked)
     }
 }
 
 class MainViewHolder(private val binding: LayoutMainItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(team: Teams) {
+    fun bind(team: Teams, onTeamClicked: (Int) -> Unit) {
+        binding.teamItemRoot.setOnClickListener {
+            onTeamClicked(team.id)
+        }
         binding.teamName.text = team.name
 
         team.logo?.let { thumbnailUrl ->
