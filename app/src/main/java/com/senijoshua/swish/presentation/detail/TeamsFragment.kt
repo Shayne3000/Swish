@@ -17,6 +17,7 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         binding = FragmentTeamsBinding.bind(view)
 
         // UI setup here
+        binding.teamsToolbar
 
         // initialise collectiong from the state flow here
 

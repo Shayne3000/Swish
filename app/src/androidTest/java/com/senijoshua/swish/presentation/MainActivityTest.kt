@@ -26,6 +26,9 @@ import javax.inject.Inject
 /**
  * Instrumented integration test for testing the [MainActivity] and its interaction with the
  * [MainViewModel].
+ * Source 1: https://github.com/xabaras/recyclerview-child-actions/blob/master/recyclerviewchildactions/src/main/java/it/xabaras/android/espresso/recyclerviewchildactions/RecyclerViewChildActions.kt
+ * Source 2: https://www.maskaravivek.com/post/working-with-recycler-views-in-espresso-tests/
+ * Source 3: https://medium.com/@wasim__/espresso-test-cases-for-android-recyclerview-eb2ceaddc74f
  */
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
