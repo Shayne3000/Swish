@@ -1,5 +1,6 @@
 package com.senijoshua.swish.presentation.list
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,13 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.senijoshua.swish.R
 import com.senijoshua.swish.databinding.ActivityMainBinding
+import com.senijoshua.swish.presentation.detail.TeamsActivity
+import com.senijoshua.swish.util.TEAM_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val adapter: MainAdapter by lazy { MainAdapter() }
+    private lateinit var adapter: MainAdapter
     private val vm: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         // Setup list adapter
+        adapter = MainAdapter { teamId ->
+            val teamIntent = Intent(this, TeamsActivity::class.java)
+            teamIntent.putExtra(TEAM_ID, teamId)
+            startActivity(teamIntent)
+        }
+
         binding.nbaList.adapter = adapter
         binding.nbaList.layoutManager = LinearLayoutManager(this)
         binding.nbaList.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))

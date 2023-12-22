@@ -15,7 +15,7 @@ class TeamsActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                add(R.id.fragment_container, TeamsFragment.newInstance())
+                add(R.id.fragment_container, TeamsFragment::class.java, intent.extras)
                 setReorderingAllowed(true)
                 addToBackStack(TeamsFragment::javaClass.name)
             }

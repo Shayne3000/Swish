@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.senijoshua.swish.R
 import com.senijoshua.swish.databinding.FragmentTeamsBinding
+import com.senijoshua.swish.util.TEAM_ID
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,6 +16,7 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentTeamsBinding.bind(view)
+        val teamId = requireArguments().getInt(TEAM_ID)
 
         // UI setup here
         binding.teamsToolbar
