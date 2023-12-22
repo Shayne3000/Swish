@@ -7,7 +7,7 @@ import javax.inject.Inject
 class DefaultMainRepository @Inject constructor(
     private val api: MainApi,
     private val dispatcher: CoroutineDispatcher
-): MainRepository {
+) : MainRepository {
     override suspend fun loadTeams(): Result<List<Teams>> {
         return withContext(dispatcher) {
             try {
@@ -15,6 +15,17 @@ class DefaultMainRepository @Inject constructor(
                 Result.Success(result.response)
                 // ideally check if response is null, if so check if result.Error is not null
                 // If not null, return Result.Error(Throwable(errorDataModel.message))
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
+    override suspend fun getTeam(teamId: Int): Result<Teams> {
+        return withContext(dispatcher) {
+            try {
+                val response = api.getTeam(teamId).response
+                Result.Success(response[0])
             } catch (e: Exception) {
                 Result.Error(e)
             }
