@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- tools:layout_behavior is a hacky fix for the AppBarLayout not rendering properly -->
+    <!-- tools:layout_behavior is a hacky fix for the AppBarLayout throwing render errors -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/teams_app_bar"
         android:layout_width="match_parent"
@@ -28,6 +28,7 @@
                 android:layout_height="240dp"
                 android:contentDescription="@string/team_logo"
                 android:scaleType="centerCrop"
+                tools:srcCompat="@drawable/placeholder"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar

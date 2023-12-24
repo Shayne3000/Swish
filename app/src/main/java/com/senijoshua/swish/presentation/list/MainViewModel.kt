@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(private val repo: MainRepository) : View
     }
 }
 
-// Add a state representation of the UI state with a sealed class
+// Add a representation of the UI state with a sealed class
 sealed class MainState {
     data class Success(val data: List<Teams>) : MainState()
     data class Error(val errorMessage: String?) : MainState()

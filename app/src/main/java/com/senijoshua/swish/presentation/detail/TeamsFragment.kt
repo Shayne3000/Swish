@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.senijoshua.swish.R
 import com.senijoshua.swish.databinding.FragmentTeamsBinding
 import com.senijoshua.swish.util.TEAM_ID
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TeamsFragment : Fragment(R.layout.fragment_teams) {
@@ -18,15 +22,38 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         binding = FragmentTeamsBinding.bind(view)
         val teamId = requireArguments().getInt(TEAM_ID)
 
-        // UI setup here
-        binding.teamsToolbar
+        // Setup the UI layer, then implement the data layer
+        binding.teamsToolbar.setNavigationIcon(R.drawable.ic_back)
+        binding.teamsToolbar.setNavigationOnClickListener {
+            requireActivity().onNavigateUp()
+        }
 
-        // initialise collectiong from the state flow here
+        // Start collection from the state flow here
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.uiState.collect{ uiState ->
+                    handleUiState(uiState)
+                }
+            }
+        }
 
         // trigger request for data
+        viewModel.getTeam(teamId)
     }
 
-    companion object {
-        fun newInstance() = TeamsFragment()
+    private fun handleUiState(uiState: TeamsUiState) {
+        when (uiState) {
+            is Loading -> {
+
+            }
+
+            is Success -> {
+
+            }
+
+            is Error -> {
+
+            }
+        }
     }
 }
