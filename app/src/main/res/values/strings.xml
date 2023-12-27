@@ -2,5 +2,6 @@
     <string name="app_name">Swish</string>
     <string name="team_logo">Team Logo</string>
     <string name="generic_error_message">An error occurred!</string>
+    <string name="team_content_description">The id of the team is %s, the name of team is %s, and the state of its national is %s.</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</string>
 </resources>

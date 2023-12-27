@@ -20,9 +20,9 @@ data class TeamResponse(
 
 @JsonClass(generateAdapter = true)
 data class Teams(
-    val id: Int,
-    val name: String,
+    val id: Int =,
+    val name: String = "",
     @Json(name = "nationnal")
-    val national: Boolean,
+    val national: Boolean = "",
     val logo: String? = null
 )
