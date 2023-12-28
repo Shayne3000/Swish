@@ -1,5 +1,6 @@
 package com.senijoshua.swish.presentation.detail
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -68,11 +69,7 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
             is Error -> {
                 // show empty content
                 toggleLayoutElementVisibility(shouldShowToolbar = true)
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.generic_error_message),
-                    Snackbar.LENGTH_LONG
-                ).show()
+                getSnackBar().show()
             }
         }
     }
@@ -92,5 +89,13 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         }
 
         binding.teamsToolbar.title = team.name
+    }
+
+    private fun getSnackBar(): Snackbar {
+        return Snackbar.make(
+            binding.root,
+            getString(R.string.generic_error_message),
+            Snackbar.LENGTH_LONG
+        ).setBackgroundTint(Color.RED).setTextColor(Color.WHITE)
     }
 }
