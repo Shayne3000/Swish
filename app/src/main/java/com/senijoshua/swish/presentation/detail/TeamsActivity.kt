@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.senijoshua.swish.R
 import com.senijoshua.swish.databinding.ActivityTeamsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TeamsActivity : AppCompatActivity() {
     private val binding: ActivityTeamsBinding by lazy { ActivityTeamsBinding.inflate(layoutInflater) }
 
@@ -17,7 +19,6 @@ class TeamsActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 add(R.id.fragment_container, TeamsFragment::class.java, intent.extras)
                 setReorderingAllowed(true)
-                addToBackStack(TeamsFragment::javaClass.name)
             }
         }
     }

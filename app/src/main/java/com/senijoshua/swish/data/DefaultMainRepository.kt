@@ -12,16 +12,21 @@ class DefaultMainRepository @Inject constructor(
         return withContext(dispatcher) {
             try {
                 val result = api.getTeams()
-                Result.Success(result.response)
-                // ideally check if response is null, if so check if result.Error is not null
-                // If not null, return Result.Error(Throwable(errorDataModel.message))
+                val response = result.response
+                val error = result.errors
+
+                if (error.isEmpty()) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(Throwable(error[0].required))
+                }
             } catch (e: Exception) {
                 Result.Error(e)
             }
         }
     }
 
-    override suspend fun getTeam(teamId: Int): Result<Teams> {
+    override suspend fun getTeam(teamId: Int): Result<Team> {
         return withContext(dispatcher) {
             try {
                 val response = api.getTeam(teamId).response

@@ -2,7 +2,6 @@ package com.senijoshua.swish.presentation.detail
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,9 +12,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.snackbar.Snackbar
 import com.senijoshua.swish.R
-import com.senijoshua.swish.data.Teams
+import com.senijoshua.swish.data.Team
 import com.senijoshua.swish.databinding.FragmentTeamsBinding
-import com.senijoshua.swish.util.TEAM_ID
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,26 +24,24 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentTeamsBinding.bind(view)
-        // TODO not process death safe
-        val teamId = requireArguments().getInt(TEAM_ID)
 
         // Setup the UI layer, then implement the data layer
         binding.teamsToolbar.setNavigationIcon(R.drawable.ic_back)
         binding.teamsToolbar.setNavigationOnClickListener {
-            requireActivity().onNavigateUp()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         // Start collection from the state flow here
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.uiState.collect{ uiState ->
+                viewModel.uiState.collect { uiState ->
                     handleUiStateUpdates(uiState)
                 }
             }
         }
 
         // trigger request for data
-        viewModel.getTeam(teamId)
+        viewModel.getTeam()
     }
 
     private fun handleUiStateUpdates(uiState: TeamsUiState) {
@@ -72,7 +68,11 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
             is Error -> {
                 // show empty content
                 toggleLayoutElementVisibility(shouldShowToolbar = true)
-                Snackbar.make(binding.root, getString(R.string.generic_error_message), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.generic_error_message),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -83,7 +83,7 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         binding.teamsContent.teamsDescription.isVisible = shouldShowToolbar
     }
 
-    private fun setupAppBarComponents(team: Teams) {
+    private fun setupAppBarComponents(team: Team) {
         team.logo?.let {
             Glide.with(requireContext())
                 .load(team.logo)
@@ -92,6 +92,5 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         }
 
         binding.teamsToolbar.title = team.name
-        binding.teamsToolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
     }
 }

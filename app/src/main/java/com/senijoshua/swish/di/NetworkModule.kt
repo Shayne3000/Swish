@@ -16,7 +16,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://v1.basketball.api-sports.io/"
+private const val BASE_URL = "https://v2.nba.api-sports.io/"
 private const val HEADER_API_KEY = "x-rapidapi-key"
 private const val HEADER_API_HOST = "x-rapidapi-host"
 private const val API_KEY = "e10b042aba6ead2c2389ed973f06c0db"

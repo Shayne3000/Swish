@@ -29,7 +29,7 @@ class DefaultMainRepositoryTest {
     @Test
     fun `loadTeams returns teams list on successful network request`() = runTest(dispatcher) {
         // arrange
-        whenever(apiService.getTeams()).thenReturn(TeamResponse(fakeTeamData))
+        whenever(apiService.getTeams()).thenReturn(TeamsResponse(fakeTeamData))
 
         // act
         val result = repository.loadTeams()
