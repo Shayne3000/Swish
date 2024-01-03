@@ -47,7 +47,6 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
     private fun handleUiStateUpdates(uiState: TeamsUiState) {
         when (uiState) {
             is Loading -> {
-                // show progressbar and hide toolbar and content
                 binding.teamsContent.progressBar.isVisible = true
             }
 
@@ -61,12 +60,10 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
                     uiState.team.national.toString()
                 )
 
-                // hide progressbar and show toolbar and content
                 binding.teamsContent.progressBar.isVisible = false
             }
 
             is Error -> {
-                // show empty content
                 binding.teamsContent.progressBar.isVisible = false
                 getSnackBar().show()
             }

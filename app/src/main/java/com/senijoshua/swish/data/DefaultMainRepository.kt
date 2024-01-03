@@ -11,15 +11,7 @@ class DefaultMainRepository @Inject constructor(
     override suspend fun loadTeams(): Result<List<Teams>> {
         return withContext(dispatcher) {
             try {
-                val result = api.getTeams()
-                val response = result.response
-                val error = result.errors
-
-                if (error.isEmpty()) {
-                    Result.Success(response)
-                } else {
-                    Result.Error(Throwable(error[0].required))
-                }
+                parseResponse(api.getTeams())
             } catch (e: Exception) {
                 Result.Error(e)
             }
@@ -29,8 +21,7 @@ class DefaultMainRepository @Inject constructor(
     override suspend fun getTeam(teamId: Int): Result<Team> {
         return withContext(dispatcher) {
             try {
-                val response = api.getTeam(teamId).response
-                Result.Success(response[0])
+                parseResponse(api.getTeam(teamId))
             } catch (e: Exception) {
                 Result.Error(e)
             }

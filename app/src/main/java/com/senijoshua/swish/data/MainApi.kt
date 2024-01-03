@@ -16,13 +16,8 @@ interface MainApi {
 @JsonClass(generateAdapter = true)
 data class TeamsResponse(
     val response: List<Teams>,
-    val errors: List<TeamError> = emptyList()
-)
-
-@JsonClass(generateAdapter = true)
-data class TeamResponse(
-    val response: List<Team>
-)
+    val errors: List<ApiError> = emptyList()
+) : ApiResponse<List<Teams>>(response, errors)
 
 @JsonClass(generateAdapter = true)
 data class Teams(
@@ -33,6 +28,12 @@ data class Teams(
 )
 
 @JsonClass(generateAdapter = true)
+data class TeamResponse(
+    val response: List<Team>,
+    val errors: List<ApiError> = emptyList()
+) : ApiResponse<Team>(response[0], errors)
+
+@JsonClass(generateAdapter = true)
 data class Team(
     val id: Int,
     val name: String,
@@ -40,6 +41,3 @@ data class Team(
     val national: Boolean,
     val logo: String? = null
 )
-
-@JsonClass(generateAdapter = true)
-data class TeamError(val required: String)
