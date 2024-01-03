@@ -26,13 +26,12 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentTeamsBinding.bind(view)
 
-        // Setup the UI layer, then implement the data layer
         binding.teamsToolbar.setNavigationIcon(R.drawable.ic_back)
         binding.teamsToolbar.setNavigationOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        // Start collection from the state flow here
+        // Start collection from the state flow/listening for state updates here
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.uiState.collect { uiState ->
@@ -49,7 +48,7 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         when (uiState) {
             is Loading -> {
                 // show progressbar and hide toolbar and content
-                toggleLayoutElementVisibility(shouldShowToolbar = false)
+                binding.teamsContent.progressBar.isVisible = true
             }
 
             is Success -> {
@@ -63,21 +62,15 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
                 )
 
                 // hide progressbar and show toolbar and content
-                toggleLayoutElementVisibility(shouldShowToolbar = true)
+                binding.teamsContent.progressBar.isVisible = false
             }
 
             is Error -> {
                 // show empty content
-                toggleLayoutElementVisibility(shouldShowToolbar = true)
+                binding.teamsContent.progressBar.isVisible = false
                 getSnackBar().show()
             }
         }
-    }
-
-    private fun toggleLayoutElementVisibility(shouldShowToolbar: Boolean) {
-        binding.teamsContent.progressBar.isVisible = !shouldShowToolbar
-        binding.teamsAppBar.isVisible = shouldShowToolbar
-        binding.teamsContent.teamsDescription.isVisible = shouldShowToolbar
     }
 
     private fun setupAppBarComponents(team: Team) {
