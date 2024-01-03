@@ -28,7 +28,7 @@ sealed interface Result<out T> {
 }
 
 /**
- * Generic network response parser
+ * Generic parser that parses the network response to the type exposed to the presentation layer.
  */
 fun <T> parseResponse(result: ApiResponse<T>): Result<T> {
     val successResponse = result.success
