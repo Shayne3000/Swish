@@ -1,6 +1,7 @@
 package com.senijoshua.swish.presentation.list
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -72,8 +73,14 @@ class MainActivity : AppCompatActivity() {
             is MainState.Error -> {
                 binding.progressBar.isVisible = false
                 val errorMessage = uiState.errorMessage ?: getString(R.string.generic_error_message)
-                Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
+                errorSnackbar(errorMessage).show()
             }
         }
+    }
+    
+    private fun errorSnackbar(errorMessage: String): Snackbar {
+        return Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(Color.RED)
+            .setTextColor(Color.WHITE)
     }
 }
