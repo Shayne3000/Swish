@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
  * with parameterized generic types T and E, representing
  * the types of the deserialised success data and the error data respectively.
  */
-sealed class ApiResponse<out T>(
+open class ApiResponse<out T>(
     val success: T,
     val error: List<ApiError>
 )
@@ -28,9 +28,10 @@ sealed interface Result<out T> {
 }
 
 /**
- * Generic parser that parses the network response to the type exposed to the presentation layer.
+ * Generic parser that parses the network response on successful network request
+ * to the Result type exposed to the presentation layer.
  */
-fun <T> parseResponse(result: ApiResponse<T>): Result<T> {
+fun <T> parseResponseToResult(result: ApiResponse<T>): Result<T> {
     val successResponse = result.success
     val errorResponse = result.error
 

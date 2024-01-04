@@ -11,8 +11,10 @@ class DefaultMainRepository @Inject constructor(
     override suspend fun loadTeams(): Result<List<Teams>> {
         return withContext(dispatcher) {
             try {
-                parseResponse(api.getTeams())
+                //on Successful network respone
+                parseResponseToResult(api.getTeams())
             } catch (e: Exception) {
+                // Network error like network request failure
                 Result.Error(e)
             }
         }
@@ -21,7 +23,7 @@ class DefaultMainRepository @Inject constructor(
     override suspend fun getTeam(teamId: Int): Result<Team> {
         return withContext(dispatcher) {
             try {
-                parseResponse(api.getTeam(teamId))
+                parseResponseToResult(api.getTeam(teamId))
             } catch (e: Exception) {
                 Result.Error(e)
             }
