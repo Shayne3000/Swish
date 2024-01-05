@@ -34,7 +34,7 @@ class TeamsViewModel @Inject constructor(
                 }
 
                 is Result.Success -> {
-                    _uiState.value = Success(result.data)
+                    _uiState.value = Success(result.data[0])
                 }
 
                 is Result.Error -> {

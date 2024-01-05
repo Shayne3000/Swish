@@ -17,6 +17,7 @@ class TeamsActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
+                // If it's the first fragment in this container, add and do not replace. Replace if there was already a fragment in the container.
                 add(R.id.fragment_container, TeamsFragment::class.java, intent.extras)
                 setReorderingAllowed(true)
             }

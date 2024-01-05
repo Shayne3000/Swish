@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    
+
     private fun errorSnackbar(errorMessage: String): Snackbar {
         return Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT)
             .setBackgroundTint(Color.RED)

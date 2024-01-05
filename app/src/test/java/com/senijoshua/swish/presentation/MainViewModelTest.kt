@@ -4,7 +4,7 @@ import com.senijoshua.swish.data.DefaultMainRepository
 import com.senijoshua.swish.data.Result
 import com.senijoshua.swish.presentation.list.MainState
 import com.senijoshua.swish.presentation.list.MainViewModel
-import com.senijoshua.swish.shared_test.fakeTeamData
+import com.senijoshua.swish.shared_test.fakeTeamsData
 import com.senijoshua.swish.util.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -41,13 +41,13 @@ class MainViewModelTest {
     @Test
     fun `getTeams returns the list of teams on success`() = runTest {
         // arrange
-        whenever(repository.loadTeams()).thenReturn(Result.Success(fakeTeamData))
+        whenever(repository.loadTeams()).thenReturn(Result.Success(fakeTeamsData))
 
         // act
         vm.getTeams()
 
         // assert
-        assertEquals(MainState.Success(fakeTeamData), vm.uiState.value)
+        assertEquals(MainState.Success(fakeTeamsData), vm.uiState.value)
     }
 
     @Test

@@ -31,7 +31,7 @@ data class Teams(
 data class TeamResponse(
     val response: List<Team>,
     val errors: List<ApiError> = emptyList()
-) : ApiResponse<Team>(response[0], errors)
+) : ApiResponse<List<Team>>(response, errors)
 
 @JsonClass(generateAdapter = true)
 data class Team(
