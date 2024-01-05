@@ -41,7 +41,6 @@ class DefaultMainRepositoryTest {
 
     @Test
     fun `loadTeams returns ApiError on error network response`() = runTest(dispatcher) {
-        // arrange
         val errorMessage = "Error!"
         whenever(apiService.getTeams()).thenReturn(
             TeamsResponse(
@@ -50,10 +49,8 @@ class DefaultMainRepositoryTest {
             )
         )
 
-        // act
         val result = repository.loadTeams()
 
-        // assert
         check(result is Result.Error)
         assertEquals(errorMessage, result.error.message)
     }
