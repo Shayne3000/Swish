@@ -1,4 +1,4 @@
-package com.senijoshua.swish.presentation
+package com.senijoshua.swish.presentation.list
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.senijoshua.swish.R
 import com.senijoshua.swish.data.MainRepository
-import com.senijoshua.swish.presentation.list.MainActivity
 import com.senijoshua.swish.shared_test.FakeMainRepository
 import com.senijoshua.swish.util.RecyclerViewItemMatcher.childViewOfItemAtPosition
 import com.senijoshua.swish.util.TeamsIdlingResource
@@ -38,7 +37,7 @@ class MainActivityTest {
     var hiltRule = HiltAndroidRule(this)
 
     // Mock/Fake/Inject dependencies
-    // In truth, the injected implementation here is FakeMainRepository. We officially cast it later.
+    // In truth, the injected implementation here is FakeMainRepository. We officially cast it later because we want to access the latter's variables which are unavailable in the parent.
     @Inject
     lateinit var mainRepository: MainRepository
 
@@ -73,7 +72,7 @@ class MainActivityTest {
     fun nbaList_showsTeamsList_onLoadSuccess() {
         val scenario = ActivityScenario.launch(MainActivity::class.java)
         // This is for validation purposes as in truth we do not need an IdlingResource since we're
-        // using a fake implementation of  the repository with a synchronous call.
+        // using a fake implementation of the repository with a synchronous call.
         // Fakes can be used to synchronize the test thread instead of an idling resource
         IdlingRegistry.getInstance().register(TeamsIdlingResource.idlingResource)
 

@@ -95,6 +95,7 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
     testImplementation("junit:junit:4.13.2")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hiltVersion")

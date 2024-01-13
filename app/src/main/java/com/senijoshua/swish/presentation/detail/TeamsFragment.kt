@@ -81,11 +81,9 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         binding.teamsToolbar.title = team.name
     }
 
-    private fun getSnackBar(): Snackbar {
-        return Snackbar.make(
-            binding.root,
-            getString(R.string.generic_error_message),
-            Snackbar.LENGTH_LONG
-        ).setBackgroundTint(Color.RED).setTextColor(Color.WHITE)
-    }
+    private fun getSnackBar() = Snackbar.make(
+        binding.root,
+        getString(R.string.generic_error_message),
+        Snackbar.LENGTH_LONG
+    ).setBackgroundTint(Color.RED).setTextColor(Color.WHITE)
 }
