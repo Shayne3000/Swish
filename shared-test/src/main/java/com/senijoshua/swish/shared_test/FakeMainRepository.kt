@@ -7,7 +7,7 @@ import javax.inject.Inject
 class FakeMainRepository @Inject constructor() : MainRepository {
     var shouldThrowError = false
     var shouldLoad = false
-    private var errorMessage = "Error!"
+    var errorMessage = "Error!"
 
     override suspend fun loadTeams() = if (shouldThrowError) {
         Result.Error(Throwable(errorMessage))

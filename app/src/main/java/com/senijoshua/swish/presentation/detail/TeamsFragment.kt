@@ -65,7 +65,9 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
 
             is Error -> {
                 binding.teamsContent.progressBar.isVisible = false
-                getSnackBar().show()
+                getSnackBar(
+                    uiState.errorMessage ?: getString(R.string.generic_error_message)
+                ).show()
             }
         }
     }
@@ -81,9 +83,9 @@ class TeamsFragment : Fragment(R.layout.fragment_teams) {
         binding.teamsToolbar.title = team.name
     }
 
-    private fun getSnackBar() = Snackbar.make(
+    private fun getSnackBar(errorMessage: String) = Snackbar.make(
         binding.root,
-        getString(R.string.generic_error_message),
+        errorMessage,
         Snackbar.LENGTH_LONG
     ).setBackgroundTint(Color.RED).setTextColor(Color.WHITE)
 }

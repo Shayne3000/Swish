@@ -9,7 +9,7 @@ val fakeTeamsData = List(10) { index ->
         index,
         "Team $index name",
         false,
-        "Team $index logo"
+        "https://unsplash.com/photos/man-in-black-crew-neck-t-shirt-using-black-laptop-computer-b9-odQi5oDo?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash"
     )
 }
 
@@ -18,6 +18,6 @@ val fakeTeamData = List(1) { index ->
         index,
         "Team $index name",
         false,
-        "Team $index logo"
+        "https://unsplash.com/photos/man-in-black-crew-neck-t-shirt-using-black-laptop-computer-b9-odQi5oDo?utm_content=creditShareLink&utm_medium=referral&utm_source=unsplash"
     )
 }
