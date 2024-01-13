@@ -86,7 +86,8 @@ class TeamsFragmentTest {
 
     /**
      * Tests that the fragment returns to the same lifecycle state
-     * at which it was a priori after system-initiated process death.
+     * at which it was a priori after system-initiated process death
+     * or a device orientation change and the like.
      */
     @Test
     fun teamsFragment_resumesProperly_onProcessDeathAndRecreation() {
@@ -115,6 +116,5 @@ class TeamsFragmentTest {
             onView(withId(R.id.team_logo)).check(matches(isDisplayed()))
             onView(withId(R.id.teams_description)).check(matches(not(withText(contentText))))
         }
-
     }
 }
