@@ -54,14 +54,10 @@ class TeamsFragmentTest {
     @Test
     fun teamsFragment_showsTeamDetail_onSuccessfulNetworkResponse() {
         val teamFragmentArgs = bundleOf(TEAM_ID to 1)
+
         launchFragmentInHiltContainer<TeamsFragment>(teamFragmentArgs)
 
-        onView(withId(R.id.teams_toolbar)).check(matches(isDisplayed()))
-        onView(withId(R.id.teams_toolbar)).check(matches(hasDescendant(withText(fakeTeamData[0].name))))
-
-        onView(withContentDescription(R.string.team_logo)).check(matches(isDisplayed()))
-        onView(withId(R.id.teams_description)).check(matches(withText(contentText)))
-
+        teamFragmentAssertions(isSuccessResponse = true)
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
     }
 
@@ -72,12 +68,7 @@ class TeamsFragmentTest {
 
         launchFragmentInHiltContainer<TeamsFragment>(teamFragmentArgs)
 
-        onView(withId(R.id.teams_toolbar)).check(matches(isDisplayed()))
-        onView(withId(R.id.teams_toolbar)).check(matches(not(hasDescendant(withText(fakeTeamData[0].name)))))
-
-        onView(withId(R.id.team_logo)).check(matches(isDisplayed()))
-        onView(withId(R.id.teams_description)).check(matches(not(withText(contentText))))
-
+        teamFragmentAssertions(isSuccessResponse = false)
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
         onView(withText(fakeMainRepository.errorMessage)).check(matches(isDisplayed()))
     }
@@ -89,12 +80,41 @@ class TeamsFragmentTest {
 
         launchFragmentInHiltContainer<TeamsFragment>(teamFragmentArgs)
 
-        onView(withId(R.id.teams_toolbar)).check(matches(isDisplayed()))
-        onView(withId(R.id.teams_toolbar)).check(matches(not(hasDescendant(withText(fakeTeamData[0].name)))))
-
-        onView(withId(R.id.team_logo)).check(matches(isDisplayed()))
-        onView(withId(R.id.teams_description)).check(matches(not(withText(contentText))))
-
+        teamFragmentAssertions(isSuccessResponse = false)
         onView(withId(R.id.progress_bar)).check(matches(isDisplayed()))
+    }
+
+    /**
+     * Tests that the fragment returns to the same lifecycle state
+     * at which it was a priori after system-initiated process death.
+     */
+    @Test
+    fun teamsFragment_resumesProperly_onProcessDeathAndRecreation() {
+        val teamFragmentArgs = bundleOf(TEAM_ID to 1)
+
+        val containingActivityScenario = launchFragmentInHiltContainer<TeamsFragment>(teamFragmentArgs)
+
+        teamFragmentAssertions(isSuccessResponse = true)
+
+        containingActivityScenario.recreate()
+
+        teamFragmentAssertions(isSuccessResponse = true)
+    }
+
+    private fun teamFragmentAssertions(isSuccessResponse: Boolean) {
+        if (isSuccessResponse) {
+            onView(withId(R.id.teams_toolbar)).check(matches(isDisplayed()))
+            onView(withId(R.id.teams_toolbar)).check(matches(hasDescendant(withText(fakeTeamData[0].name))))
+
+            onView(withContentDescription(R.string.team_logo)).check(matches(isDisplayed()))
+            onView(withId(R.id.teams_description)).check(matches(withText(contentText)))
+        } else {
+            onView(withId(R.id.teams_toolbar)).check(matches(isDisplayed()))
+            onView(withId(R.id.teams_toolbar)).check(matches(not(hasDescendant(withText(fakeTeamData[0].name)))))
+
+            onView(withId(R.id.team_logo)).check(matches(isDisplayed()))
+            onView(withId(R.id.teams_description)).check(matches(not(withText(contentText))))
+        }
+
     }
 }
