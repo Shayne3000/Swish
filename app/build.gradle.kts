@@ -46,6 +46,7 @@ android {
     // For IdlingResource causing a failure in the MainViewModel tests. Might be better to not include it in prod code.
     testOptions {
         unitTests.isReturnDefaultValues = true
+        unitTests.isIncludeAndroidResources = true
     }
 }
 
@@ -98,6 +99,7 @@ dependencies {
     debugImplementation("androidx.fragment:fragment-testing:1.6.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.11.1")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hiltVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")

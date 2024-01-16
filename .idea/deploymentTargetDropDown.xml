@@ -5,6 +5,15 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="teamsFragment_resumesProperly_onFragmentRecreation()">
+        <State />
+      </entry>
+      <entry key="teamsFragment_showsErrorSnackbar_onErrorNetworkResponse()">
+        <State />
+      </entry>
+      <entry key="teamsFragment_showsLoadingState_onLoadingNetworkResponse()">
+        <State />
+      </entry>
       <entry key="teamsFragment_showsTeamDetail_onSuccessfulNetworkResponse()">
         <State />
       </entry>
