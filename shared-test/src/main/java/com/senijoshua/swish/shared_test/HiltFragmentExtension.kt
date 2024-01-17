@@ -1,5 +1,6 @@
-package com.senijoshua.swish.util
+package com.senijoshua.swish.shared_test
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,7 @@ import com.senijoshua.swish.R
  * Create the empty, @AndroidEntryPoint-annotated [HiltTestActivity] in a debug source set within the app module
  * and include it in an AndroidManifest.xml file within the same source set.
  */
+@SuppressLint("RestrictedApi")
 inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     fragmentArgs: Bundle? = null,
     @StyleRes themeResId: Int = R.style.Theme_Swish,
@@ -37,20 +39,21 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
         themeResId
     )
 
-    val activityScenario = ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity ->
-        val fragment: Fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
-            Preconditions.checkNotNull(T::class.java.classLoader),
-            T::class.java.name
-        )
-        fragment.arguments = fragmentArgs
+    val activityScenario =
+        ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity ->
+            val fragment: Fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
+                Preconditions.checkNotNull(T::class.java.classLoader),
+                T::class.java.name
+            )
+            fragment.arguments = fragmentArgs
 
-        activity.supportFragmentManager
-            .beginTransaction()
-            .add(android.R.id.content, fragment, "")
-            .commitNow()
+            activity.supportFragmentManager
+                .beginTransaction()
+                .add(android.R.id.content, fragment, "")
+                .commitNow()
 
-        fragment.action()
-    }
+            fragment.action()
+        }
 
     return activityScenario
 }

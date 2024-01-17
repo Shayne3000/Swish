@@ -13,8 +13,8 @@ import com.senijoshua.swish.R
 import com.senijoshua.swish.data.MainRepository
 import com.senijoshua.swish.shared_test.FakeMainRepository
 import com.senijoshua.swish.shared_test.fakeTeamData
+import com.senijoshua.swish.shared_test.launchFragmentInHiltContainer
 import com.senijoshua.swish.util.TEAM_ID
-import com.senijoshua.swish.util.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.CoreMatchers.not

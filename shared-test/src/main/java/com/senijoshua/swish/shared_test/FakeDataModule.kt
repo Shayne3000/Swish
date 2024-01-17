@@ -1,8 +1,7 @@
-package com.senijoshua.swish.util
+package com.senijoshua.swish.shared_test
 
 import com.senijoshua.swish.data.MainRepository
 import com.senijoshua.swish.di.DataModule
-import com.senijoshua.swish.shared_test.FakeMainRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent

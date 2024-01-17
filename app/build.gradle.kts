@@ -51,12 +51,13 @@ android {
 }
 
 dependencies {
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     val retrofitVersion = "2.9.0"
     val kotlinCoroutinesVersion = "1.6.4"
     val espressoVersion = "3.5.1"
     val hiltVersion = "2.46.1"
+
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     // Base
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.activity:activity-ktx:1.8.2")
@@ -96,12 +97,15 @@ dependencies {
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
+    testImplementation("com.google.dagger:hilt-android-testing:$hiltVersion")
     debugImplementation("androidx.fragment:fragment-testing:1.6.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.11.1")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    kaptTest("com.google.dagger:hilt-android-compiler:$hiltVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
     androidTestImplementation("androidx.test.espresso:espresso-core:$espressoVersion")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:$espressoVersion")
 }
