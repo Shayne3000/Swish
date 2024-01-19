@@ -7,10 +7,9 @@ import javax.inject.Inject
 class FakeMainRepository @Inject constructor() : MainRepository {
     var shouldThrowError = false
     var shouldLoad = false
-    var errorMessage = "Error!"
 
     override suspend fun loadTeams() = if (shouldThrowError) {
-        Result.Error(Throwable(errorMessage))
+        Result.Error(Throwable(ERROR_TEXT))
     } else if (shouldLoad) {
         Result.Loading
     } else {
@@ -18,7 +17,7 @@ class FakeMainRepository @Inject constructor() : MainRepository {
     }
 
     override suspend fun getTeam(teamId: Int) = if (shouldThrowError) {
-        Result.Error(Throwable(errorMessage))
+        Result.Error(Throwable(ERROR_TEXT))
     } else if (shouldLoad) {
         Result.Loading
     } else {

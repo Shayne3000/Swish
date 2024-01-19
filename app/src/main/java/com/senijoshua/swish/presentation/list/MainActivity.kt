@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // inflate views
-        binding.toolbar.title = "NBA List"
+        binding.toolbar.title = getString(R.string.app_name)
         binding.toolbar.setTitleTextColor(getColor(R.color.white))
         setSupportActionBar(binding.toolbar)
 

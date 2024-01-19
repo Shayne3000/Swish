@@ -1,5 +1,6 @@
 package com.senijoshua.swish.data
 
+import com.senijoshua.swish.shared_test.ERROR_TEXT
 import com.senijoshua.swish.shared_test.fakeTeamData
 import com.senijoshua.swish.shared_test.fakeTeamsData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,28 +42,27 @@ class DefaultMainRepositoryTest {
 
     @Test
     fun `loadTeams returns ApiError on error network response`() = runTest(dispatcher) {
-        val errorMessage = "Error!"
         whenever(apiService.getTeams()).thenReturn(
             TeamsResponse(
                 emptyList(),
-                listOf(ApiError(required = errorMessage))
+                listOf(ApiError(required = ERROR_TEXT))
             )
         )
 
         val result = repository.loadTeams()
 
         check(result is Result.Error)
-        assertEquals(errorMessage, result.error.message)
+        assertEquals(ERROR_TEXT, result.error.message)
     }
 
     @Test(expected = Throwable::class)
     fun `loadTeams returns error on network request failure`() = runTest(dispatcher) {
-        whenever(apiService.getTeams()).thenThrow(Throwable("error"))
+        whenever(apiService.getTeams()).thenThrow(Throwable(ERROR_TEXT))
 
         val result = repository.loadTeams()
 
         check(result is Result.Error)
-        assertEquals("error", result.error.message)
+        assertEquals(ERROR_TEXT, result.error.message)
     }
 
     @Test
@@ -77,11 +77,10 @@ class DefaultMainRepositoryTest {
 
     @Test
     fun `getTeam returns ApiError on error network response`() = runTest(dispatcher) {
-        val errorMessage = "Error!"
         whenever(apiService.getTeam(anyInt())).thenReturn(
             TeamResponse(
                 response = emptyList(), errors = listOf(
-                    ApiError(required = errorMessage)
+                    ApiError(required = ERROR_TEXT)
                 )
             )
         )
@@ -89,7 +88,7 @@ class DefaultMainRepositoryTest {
         val result = repository.getTeam(1)
 
         check(result is Result.Error)
-        assertEquals(errorMessage, result.error.message)
+        assertEquals(ERROR_TEXT, result.error.message)
     }
 
     @Test(expected = Throwable::class)

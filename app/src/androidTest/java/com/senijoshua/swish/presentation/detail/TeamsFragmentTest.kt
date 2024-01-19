@@ -11,7 +11,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.senijoshua.swish.R
 import com.senijoshua.swish.data.MainRepository
+import com.senijoshua.swish.shared_test.ERROR_TEXT
 import com.senijoshua.swish.shared_test.FakeMainRepository
+import com.senijoshua.swish.shared_test.contentText
 import com.senijoshua.swish.shared_test.fakeTeamData
 import com.senijoshua.swish.shared_test.launchFragmentInHiltContainer
 import com.senijoshua.swish.util.TEAM_ID
@@ -41,9 +43,6 @@ class TeamsFragmentTest {
 
     private lateinit var fakeMainRepository: FakeMainRepository
 
-    private val contentText = "The id of the team is ${fakeTeamData[0].id}, the name of team is " +
-            "${fakeTeamData[0].name}, and the state of its national is ${fakeTeamData[0].national}."
-
     // Test the various states of the fragment
     @Before
     fun setUp() {
@@ -70,7 +69,7 @@ class TeamsFragmentTest {
 
         teamFragmentAssertions(isSuccessResponse = false)
         onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
-        onView(withText(fakeMainRepository.errorMessage)).check(matches(isDisplayed()))
+        onView(withText(ERROR_TEXT)).check(matches(isDisplayed()))
     }
 
     @Test

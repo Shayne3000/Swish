@@ -11,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.senijoshua.swish.R
 import com.senijoshua.swish.data.MainRepository
 import com.senijoshua.swish.presentation.detail.TeamsFragment
+import com.senijoshua.swish.shared_test.ERROR_TEXT
 import com.senijoshua.swish.shared_test.FakeMainRepository
 import com.senijoshua.swish.shared_test.fakeTeamData
 import com.senijoshua.swish.shared_test.launchFragmentInHiltContainer
@@ -71,19 +72,16 @@ class TeamsFragmentRobolectricTest {
 
     @Test
     fun teamsFragment_showError_onNetworkRequestErrorResponse() {
-        // arrange
         fakeMainRepository.shouldThrowError = true
 
         launchFragmentInHiltContainer<TeamsFragment>(fragmentArgs)
 
-        // act
         onView(withId(R.id.teams_toolbar)).check(matches(isDisplayed()))
 
         onView(withId(R.id.teams_toolbar)).check(matches(not(hasDescendant(withText(fakeTeamData[0].name)))))
 
-        // assert
         onView(withId(R.id.teams_description)).check(matches(not(withText(contentText))))
 
-        onView(withText(fakeMainRepository.errorMessage)).check(matches(isDisplayed()))
+        onView(withText(ERROR_TEXT)).check(matches(isDisplayed()))
     }
 }

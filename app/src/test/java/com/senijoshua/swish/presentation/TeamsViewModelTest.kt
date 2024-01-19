@@ -7,6 +7,7 @@ import com.senijoshua.swish.presentation.detail.Error
 import com.senijoshua.swish.presentation.detail.Loading
 import com.senijoshua.swish.presentation.detail.Success
 import com.senijoshua.swish.presentation.detail.TeamsViewModel
+import com.senijoshua.swish.shared_test.ERROR_TEXT
 import com.senijoshua.swish.shared_test.fakeTeamData
 import com.senijoshua.swish.util.MainDispatcherRule
 import com.senijoshua.swish.util.TEAM_ID
@@ -61,11 +62,10 @@ class TeamsViewModelTest {
 
     @Test
     fun `getTeam returns error on error network response`() = runTest {
-        val errorMessage = "Error!"
-        whenever(repo.getTeam(anyInt())).thenReturn(Result.Error(Throwable(errorMessage)))
+        whenever(repo.getTeam(anyInt())).thenReturn(Result.Error(Throwable(ERROR_TEXT)))
 
         vm.getTeam()
 
-        assertEquals(Error(errorMessage), vm.uiState.value)
+        assertEquals(Error(ERROR_TEXT), vm.uiState.value)
     }
 }
