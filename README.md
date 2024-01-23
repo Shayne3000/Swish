@@ -1,8 +1,9 @@
 #  Swish
-A simple app showing a list of NBA teams to triage a few Android technologies.
+A simple app showing a list of NBA teams and details of said teams in a detail view to triage a few Android technologies within a legacy AndroidViews paradigm.
 
 ## Technologies
 
+- AndroidViews for UI.
 - Flow for observable data streams
 - Coroutines for concurrent operations and asynchronous execution
 - Moshi for JSON parsing
